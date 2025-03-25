@@ -11,7 +11,7 @@ on:
 env:
   MIRROR_URL: "git@github.com:EpitechPGEPromo2029/B-DOP-200-LIL-2-1-chocolatine-jawed.lahrouri.git"
   EXECUTABLES: "example"
-  LIBRARIES: "lib/libmy.a"
+#  LIBRARIES: "lib/libmy.a"
 
 jobs:
   check_coding_style:
@@ -63,7 +63,7 @@ jobs:
       - name: check files existence
         id: set_output
         run: |
-          if [ -f "${{ env.EXECUTABLES }}" ] && [ -f "${{ env.LIBRARIES }}" ]; then
+          if [ -f "${{ env.EXECUTABLES }}" ]; then
             echo "run_jobs=true" >> $GITHUB_OUTPUT
           else
             echo "run_jobs=false" >> $GITHUB_OUTPUT
