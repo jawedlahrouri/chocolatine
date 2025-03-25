@@ -14,7 +14,6 @@ SRC =	./main.c
 OBJ  	=	 $(SRC:.c=.o)
 
 all: 	$(NAME)
-		$(MAKE) clean
 
 $(NAME): $(OBJ)
 		 gcc -o $(NAME) $(CFLAGS) $(OBJ)
