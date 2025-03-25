@@ -5,7 +5,7 @@
 ## MakeFile dans le fichier root
 ##
 
-NAME = a.out
+NAME = example
 DEBUG = -g
 CFLAGS += -Wall -Wextra -W -Iinclude
 
