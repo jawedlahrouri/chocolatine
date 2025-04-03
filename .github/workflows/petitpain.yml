@@ -43,7 +43,7 @@ jobs:
             echo "run_jobs=true" >> $GITHUB_OUTPUT
           fi
 
-  check_compilation:
+  check_program_compilation:
     name: Checking compilation
     if: github.repository != 'EpitechPGEPromo2029/B-DOP-200-LIL-2-1-chocolatine-jawed.lahrouri'
     runs-on: ubuntu-latest
@@ -72,7 +72,7 @@ jobs:
 
   push_to_mirror:
     name: mirror repository
-    needs: [check_compilation, check_coding_style]
+    needs: [check_program_compilation, check_coding_style]
     if: needs.check_compilation.outputs.run_rest_jobs == 'true' && needs.check_coding_style.outputs.run_rest_jobs == 'true'
     runs-on: ubuntu-latest
 
