@@ -48,6 +48,7 @@ jobs:
     if: github.repository != 'EpitechPGEPromo2029/B-DOP-200-LIL-2-1-chocolatine-jawed.lahrouri'
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker:latest
+    needs: [check_coding_style]
     outputs:
       run_rest_jobs: ${{ steps.set_output.outputs.run_jobs }}
     steps:
@@ -58,7 +59,12 @@ jobs:
       
       - name: run make
         timeout-minutes: 2
-        run: make
+        run: |
+          if : make then
+            echo "::error:: compilation failed!"
+            exit 1
+          fi
+
 
       - name: check files existence
         id: set_output
@@ -70,9 +76,22 @@ jobs:
             echo "::error:: compilation failed"
           fi
 
+  run_tests:
+    name: run test
+    if: github.repository != 'EpitechPGEPromo2029/B-DOP-200-LIL-2-1-chocolatine-jawed.lahrouri'
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker:latest
+    needs: [check_program_compilation]
+    steps:
+      - uses: action/checkout@v4
+      - name: run criterion tests
+        run : make tests_run
+        timeout-minutes: 2
+
   push_to_mirror:
     name: mirror repository
-    needs: [check_program_compilation, check_coding_style]
+    needs: [check_program_compilation, check_coding_style, run_tests]
     if: needs.check_compilation.outputs.run_rest_jobs == 'true' && needs.check_coding_style.outputs.run_rest_jobs == 'true'
     runs-on: ubuntu-latest
 
@@ -87,3 +106,4 @@ jobs:
         with:
           target_repo_url: ${{ env.MIRROR_URL }}
           ssh_private_key: ${{secrets.SSH_PRIVATE_KEY}}
+
