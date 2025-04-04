@@ -80,7 +80,7 @@ jobs:
       image: epitechcontent/epitest-docker:latest
     needs: [check_program_compilation]
     steps:
-      - uses: action/checkout@v4
+      - uses: actions/checkout@v4
       - name: run criterion tests
         run : make tests_run
         timeout-minutes: 2
