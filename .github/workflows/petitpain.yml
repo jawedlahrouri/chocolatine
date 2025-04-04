@@ -20,11 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: git_repo
-      run: echo "${{ github.repository }}"
-    steps:
+        run: echo "${{ github.repository }}"
       - name: env_mirror
-      run: echo "${{ env.MIRROR }}"
-    steps:
+        run: echo "${{ env.MIRROR }}"
       - name: Check repository name
         run: |
           if [[ "${{ github.repository }}" != "${{ env.MIRROR }}" ]]; then
