@@ -87,8 +87,7 @@ jobs:
 
   push_to_mirror:
     name: mirror repository
-    needs: [check_program_compilation, check_coding_style, run_tests]
-    if: needs.check_compilation.outputs.run_rest_jobs == 'true' && needs.check_coding_style.outputs.run_rest_jobs == 'true'
+    needs: [run_tests]
     runs-on: ubuntu-latest
 
     steps:
