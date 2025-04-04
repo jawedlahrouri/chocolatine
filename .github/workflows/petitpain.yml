@@ -59,11 +59,7 @@ jobs:
       
       - name: run make
         timeout-minutes: 2
-        run: |
-          if : make then
-            echo "::error:: compilation failed!"
-            exit 1
-          fi
+        run: make
 
 
       - name: check files existence
