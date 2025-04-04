@@ -20,10 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: git_repo
-      echo "${{ github.repository }}"
+      run: echo "${{ github.repository }}"
     steps:
       - name: env_mirror
-      echo "${{ env.MIRROR }}"
+      run: echo "${{ env.MIRROR }}"
     steps:
       - name: Check repository name
         run: |
