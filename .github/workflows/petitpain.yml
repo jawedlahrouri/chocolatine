@@ -19,6 +19,12 @@ jobs:
     name: checking_repo_name
     runs-on: ubuntu-latest
     steps:
+      - name: git_repo
+      echo "${{ github.repository }}"
+    steps:
+      - name: env_mirror
+      echo "${{ env.MIRROR }}"
+    steps:
       - name: Check repository name
         run: |
           if [[ "${{ github.repository }}" != "${{ env.MIRROR }}" ]]; then
