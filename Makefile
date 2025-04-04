@@ -5,25 +5,28 @@
 ## MakeFile dans le fichier root
 ##
 
-NAME = example
-DEBUG = -g
-CFLAGS += -Wall -Wextra -W -Iinclude
+FILES    =    main.c
 
-SRC =	./main.c
+OBJ        =    $(FILES:.c=.o)
 
-OBJ  	=	 $(SRC:.c=.o)
+EXEC    =    example
 
-all: 	$(NAME)
+CFLAGS    =    -Wall -Wextra
 
-$(NAME): $(OBJ)
-		 gcc -o $(NAME) $(CFLAGS) $(OBJ)
+TESTS_RUN    =    ./tester.sh
 
-clean || clear:
-		rm -f $(OBJ)
+all:    $(EXEC)
 
-fclean: clean
-		rm -f $(NAME)
+$(EXEC):    $(OBJ)
+	gcc -o $(EXEC) $(OBJ) $(CFLAGS)
 
-re:
-		$(MAKE) fclean
-		$(MAKE) all
+tests_run:    all
+	$(TESTS_RUN)
+
+clean:
+	rm -f $(OBJ)
+
+fclean:    clean
+	rm -f $(EXEC)
+
+re: fclean all

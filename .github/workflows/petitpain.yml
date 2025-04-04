@@ -60,7 +60,9 @@ jobs:
       - name: run make
         timeout-minutes: 2
         run: make
-
+      
+      - name: run make clean
+        run: make clean
 
       - name: check files existence
         id: set_output
