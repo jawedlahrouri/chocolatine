@@ -15,24 +15,8 @@ env:
 #  LIBRARIES: "lib/libmy.a"
 
 jobs:
-  check_repo_name:
-    name: checking_repo_name
-    runs-on: ubuntu-latest
-    steps:
-      - name: git_repo
-        run: echo "${{ github.repository }}"
-      - name: env_mirror
-        run: echo "${{ env.MIRROR }}"
-      - name: Check repository name
-        run: |
-          if [[ "${{ github.repository }}" != "${{ env.MIRROR }}" ]]; then
-            echo "::error:: Repository name does not match expected value."
-            exit 1
-          fi
-
   check_coding_style:
     name: coding style checker
-    needs: [check_repo_name]
     runs-on: ubuntu-latest
     container: ghcr.io/epitech/coding-style-checker:latest
     outputs:
