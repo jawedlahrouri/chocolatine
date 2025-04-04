@@ -11,12 +11,24 @@ on:
 env:
   MIRROR_URL: "git@github.com:EpitechPGEPromo2029/B-DOP-200-LIL-2-1-chocolatine-jawed.lahrouri.git"
   EXECUTABLES: "example"
+  MIRROR: 'EpitechPGEPromo2029/B-DOP-200-LIL-2-1-chocolatine-jawed.lahrouri'
 #  LIBRARIES: "lib/libmy.a"
 
 jobs:
+  check_repo_name:
+    name: checking_repo_name
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check repository name
+        run: |
+          if [[ "${{ github.repository }}" != "${{ env.MIRROR }}" ]]; then
+            echo "::error:: Repository name does not match expected value."
+            exit 1
+          fi
+
   check_coding_style:
     name: coding style checker
-    if: github.repository != 'EpitechPGEPromo2029/B-DOP-200-LIL-2-1-chocolatine-jawed.lahrouri'
+    needs: [check_repo_name]
     runs-on: ubuntu-latest
     container: ghcr.io/epitech/coding-style-checker:latest
     outputs:
@@ -45,7 +57,6 @@ jobs:
 
   check_program_compilation:
     name: Checking compilation
-    if: github.repository != 'EpitechPGEPromo2029/B-DOP-200-LIL-2-1-chocolatine-jawed.lahrouri'
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker:latest
     needs: [check_coding_style]
@@ -76,7 +87,6 @@ jobs:
 
   run_tests:
     name: run test
-    if: github.repository != 'EpitechPGEPromo2029/B-DOP-200-LIL-2-1-chocolatine-jawed.lahrouri'
     runs-on: ubuntu-latest
     container:
       image: epitechcontent/epitest-docker:latest
